@@ -34,32 +34,35 @@ The above commands will install cpu-only version of the `pytorch` package. Pleas
 
 ## Usage
 
-1. Run `python main.py --input <input_file> --output_dir <output_directory>` to run `CloneClassifier` on the specified input file and save the predictions as `results.csv` in the specified output directory. By default, the input file is `examples/c4.csv` and the output directory is `results/`.
+1. Run `python main.py --input <input_path> --output <output_path>` to run `CloneClassifier` on the csv file at `<input_path>` and save its predictions at `<output_path>`. For example:
+
+    ```sh
+    python main.py --input examples/c4.csv --output results/res.csv
+    ```
+
+    The input of `main.py` is a csv file containing two columns named `code1` and `code2`, where each row contains a pair of python code snippets to be compared. The output csv file will have three columns named `code1`, `code2`, and `predictions`, where `predictions` indicates whether the two code snippets in the corresponding row are semantically similar.
+
 2. Use the command `python main.py --help` to see other optional arguments including `max_token_size`, `fp16`, and `per_device_eval_batch_size`.
 3. You could also import `CloneClassifier` class from `clone_classifier.py` and use it in your own code, for example:
 
     ```python
-    import argparse
     import pandas as pd
     from clone_classifier import CloneClassifier
 
 
-    args = argparse.Namespace(
-                max_token_size=512,
-                fp16=False,
-                input="",
-                output_dir="results/",
-                per_device_eval_batch_size=8,
-            )
-    classifier = CloneClassifier(args)
-    # enable fp16 for faster inference if available:
-    # classifier.enable_fp16()
+    classifier = CloneClassifier(
+        max_token_size=512,
+        fp16=False,  # set to True for faster inference if available
+        per_device_eval_batch_size=8,
+    )
 
     df = pd.read_csv("examples/c4.csv").head(10)
-    res_df = classifier.predict(df[["code1", "code2"]])
+    res_df = classifier.predict(
+        df[["code1", "code2"]], 
+        # save_path="results/res.csv"
+    )
 
     print(res_df["predictions"] == df["similar"])
-    # res_df.to_csv("results/results.csv", index=False)
     ```
 
 ## License
