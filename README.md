@@ -6,7 +6,7 @@ Detect semantically similar python code using fine-tuned GraphCodeBERT model.
 
 This modified [GraphCodeBERT](https://arxiv.org/abs/2009.08366) model was fine-tuned for 11 hours using an A40 server on the [PoolC (1fold)](https://huggingface.co/datasets/PoolC/1-fold-clone-detection-600k-5fold) dataset, which contains over 6M pairs of semantically similar python code snippets.
 
-It is then used to predict the similarity of python code snippets in other folds of the [PoolC](https://huggingface.co/datasets/PoolC/5-fold-clone-detection-600k-5fold) dataset, as well as the [C4](https://github.com/Chenning-Tao/C4/tree/main/dataset) dataset. It achieved F1 scores of greater than 0.97 on all datasets in several experiments, where balanced sampling was applied.
+It is then used to predict the similarity of python code snippets in other folds of the [PoolC](https://huggingface.co/datasets/PoolC/5-fold-clone-detection-600k-5fold) dataset, as well as the [C4](https://github.com/Chenning-Tao/C4/tree/main/dataset) dataset. It achieved F1 scores of greater than 0.96 on all datasets in several experiments, where balanced sampling was applied.
 
 ## Prerequisites & Installation
 
